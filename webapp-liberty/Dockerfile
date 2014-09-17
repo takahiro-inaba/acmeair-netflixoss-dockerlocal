@@ -15,10 +15,15 @@
 ################################################################################
 FROM acmeair/liberty
 
-RUN cd /opt/ibm/wlp/usr/servers/defaultServer &&\
+RUN cd /root &&\
+  wget -qO- https://github.com/aspyker/acmeair-netflix/archive/astyanax.tar.gz | tar xzf - &&\
+  cd acmeair-netflix-astyanax &&\
+  export JAVA_HOME=/usr/lib/jvm/java-7-oracle &&\
+  ./gradlew acmeair-webapp-tc7:war &&\
+  cd /opt/ibm/wlp/usr/servers/defaultServer &&\
   mkdir -p apps/webapp.war &&\
   cd apps/webapp.war &&\
-  wget -qO app.war https://acmeair.ci.cloudbees.com/job/acmeair-netflix-astyanax/lastSuccessfulBuild/artifact/acmeair-webapp-tc7/build/libs/acmeair-webapp-tc7-0.1.0-SNAPSHOT.war &&\
+  cp /root/acmeair-netflix-astyanax/acmeair-webapp-tc7/build/libs/acmeair-webapp-tc7-0.1.0-SNAPSHOT.war app.war &&\
   jar xf app.war &&\
   rm app.war
 

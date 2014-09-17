@@ -15,15 +15,18 @@
 ################################################################################
 FROM acmeair/cassandra
 
-RUN wget -qO /opt/app.zip \
-    https://acmeair.ci.cloudbees.com/job/acmeair-netflix-astyanax/lastSuccessfulBuild/artifact/acmeair-loader/build/distributions/acmeair-loader-0.1.0-SNAPSHOT.zip &&\
+RUN cd /root &&\
+  wget -qO- https://github.com/aspyker/acmeair-netflix/archive/astyanax.tar.gz | tar xzf - &&\
+  cd acmeair-netflix-astyanax &&\
+  ./gradlew acmeair-loader:distZip &&\
+  cp acmeair-loader/build/distributions/acmeair-loader-0.1.0-SNAPSHOT.zip /opt/app.zip &&\
   cd /opt &&\
   jar xf app.zip &&\
   rm app.zip &&\
   mv acmeair-loader-* acmeair-loader &&\
   cd acmeair-loader/bin &&\
   chmod +x acmeair-loader &&\
-  wget -q https://acmeair.ci.cloudbees.com/job/acmeair-netflix-astyanax/lastSuccessfulBuild/artifact/acmeair-services-astyanax/src/main/resources/acmeair-cql.txt &&\
+  cp /root/acmeair-netflix-astyanax/acmeair-services-astyanax/src/main/resources/acmeair-cql.txt . &&\
   sed -i 's/DROP/\/\/DROP/' acmeair-cql.txt
 
 ENV JAVA_OPTS -Dcom.acmeair.cassandra.contactpoint=cassandra1.cassandra.local.flyacmeair.net

@@ -15,10 +15,14 @@
 ################################################################################
 FROM acmeair/tomcat
 
-RUN cd /opt/tomcat/webapps &&\
+RUN cd /root &&\
+  wget -qO- https://github.com/aspyker/acmeair-netflix/archive/astyanax.tar.gz | tar xzf - &&\
+  cd acmeair-netflix-astyanax &&\
+  ./gradlew acmeair-webapp-tc7:war &&\
+  cd /opt/tomcat/webapps &&\
   mkdir ROOT &&\
   cd ROOT &&\
-  wget -qO app.war https://acmeair.ci.cloudbees.com/job/acmeair-netflix-astyanax/lastSuccessfulBuild/artifact/acmeair-webapp-tc7/build/libs/acmeair-webapp-tc7-0.1.0-SNAPSHOT.war &&\
+  cp /root/acmeair-netflix-astyanax/acmeair-webapp-tc7/build/libs/acmeair-webapp-tc7-0.1.0-SNAPSHOT.war app.war &&\
   jar xf app.war &&\
   rm app.war
 
