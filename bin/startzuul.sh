@@ -3,7 +3,7 @@
 . ./env.sh
 
 $docker_cmd run \
--d -t -P \
+-d -t -p 18081:80 \
 --dns "$dns" \
 $dns_search \
 --name zuul -h zuul.zuul.local.flyacmeair.net \

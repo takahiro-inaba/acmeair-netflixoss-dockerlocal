@@ -3,7 +3,7 @@
 . ./env.sh
 
 $docker_cmd run \
--d -t -P \
+-d -t -p 18080:80 \
 --dns "$dns" \
 $dns_search \
 --name eureka -h eureka.eureka.local.flyacmeair.net \
