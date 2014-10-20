@@ -15,6 +15,9 @@
 ################################################################################
 FROM ubuntu:14.04
 
+ENV http_proxy http://172.17.42.1:3128
+ENV https_proxy http://172.17.42.1:3128
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     bundler \
     curl \

@@ -20,10 +20,10 @@ RUN cd /usr/local &&\
   mv /tmp/EmergingTechnologyInstitute-microscaler-*/microscaler-agent /usr/local &&\
   rm -Rf /tmp/EmergingTechnologyInstitute-microscaler-* &&\
   cd microscaler-agent &&\
-  mkdir /.bundle &&\
-  echo --- >> /.bundle/config &&\
-  echo 'BUNDLE_BUILD__EVENTMACHINE: --with-cflags="-O2 -pipe -march=native -w" ' >> /.bundle/config &&\
-  echo 'BUNDLE_BUILD__THIN: --with-cflags="-O2 -pipe -march=native -w" ' >> /.bundle/config &&\
+  mkdir /root/.bundle &&\
+  echo --- >> /root/.bundle/config &&\
+  echo 'BUNDLE_BUILD__EVENTMACHINE: --with-cflags="-O2 -pipe -march=native -w" ' >> /root/.bundle/config &&\
+  echo 'BUNDLE_BUILD__THIN: --with-cflags="-O2 -pipe -march=native -w" ' >> /root/.bundle/config &&\
   bundle install &&\
   chmod a+x lib/docker_agent.rb &&\
   chmod a+x lib/rest_client.rb

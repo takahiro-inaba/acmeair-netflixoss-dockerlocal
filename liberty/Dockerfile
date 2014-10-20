@@ -1,7 +1,8 @@
 FROM acmeair/ibmjava
 
+COPY wlp-developers-runtime-8.5.5.2.jar /tmp/
+
 RUN cd /tmp &&\
-  wget -q http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/8.5.5.2/wlp-developers-runtime-8.5.5.2.jar &&\
   /opt/ibm/java/jre/bin/java -jar wlp-developers-runtime-8.5.5.2.jar --acceptLicense /opt/ibm &&\
   rm -rf *
 

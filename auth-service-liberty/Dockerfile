@@ -15,6 +15,8 @@
 ################################################################################
 FROM acmeair/liberty
 
+ENV JAVA_OPTS -DproxyHost=172.17.42.1 -DproxyPort=3128
+
 RUN cd /root &&\
   wget -qO- https://github.com/aspyker/acmeair-netflix/archive/astyanax.tar.gz | tar xzf - &&\
   cd acmeair-netflix-astyanax &&\

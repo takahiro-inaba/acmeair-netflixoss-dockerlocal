@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker_cmd="sudo docker"
+docker_cmd="docker -H :2375 "
 bridge_name=docker0
 docker_port=2375
 
@@ -11,7 +11,7 @@ if [ "$appserver" = "wlp" ]; then
   as_suffix=-liberty
 fi
 
-bridge_addr=$(ifconfig $bridge_name | grep 'inet ' | awk '{ print $2}')
+bridge_addr=$(ifconfig $bridge_name | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 docker_addr=$bridge_addr
 docker_url_base=http://${docker_addr}:${docker_port}
 dns_addr=$bridge_addr

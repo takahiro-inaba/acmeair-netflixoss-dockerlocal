@@ -15,6 +15,8 @@
 ################################################################################
 FROM acmeair/tomcat
 
+ENV JAVA_OPTS -DproxyHost=172.17.42.1 -DproxyPort=3128
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mongodb &&\
   apt-get clean &&\
   rm -Rf /var/cache/*
